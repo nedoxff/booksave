@@ -1,14 +1,14 @@
 import { getAuthorizationData } from "$lib/api/auth";
 import { abort, getSessionValue, updateState } from "@/entrypoints/background";
-import { TwitterAuthorization } from "./api/types/internal/TwitterAuthorization";
 import { ExtensionState } from "./api/types/internal/ExtensionState";
-import { RawTweet } from "./api/types/external/common_types";
+import { RawTweet } from "./api/types/external/common-types";
 import { ExportRequest, FilenameOption, SourceOption } from "./api/types/internal/ExportOptions";
 import { TweetMedia } from "./api/types/internal/TweetMedia";
-import { processBookmarks } from "./processors/bookmarks";
 import { sendMessage } from "./messaging";
-import { processLikedTweets } from "./processors/likedTweets";
-import { processMediaTweets } from "./processors/mediaTweets";
+import { createArchiveForSource } from "./archive";
+import { getBookmarkChunk } from "./api/bookmarks";
+import { getLikesChunk } from "./api/profile";
+import { getMediaChunk } from "./api/media";
 
 const initializeAuthorizationData = async () => {
     const dirtyAuth = await getAuthorizationData();
@@ -24,6 +24,21 @@ const initializeAuthorizationData = async () => {
     }
 }
 
+export const processBookmarks = async () => {
+    await updateState(ExtensionState.PROCESSING_BOOKMARKS);
+    await createArchiveForSource(SourceOption.BOOKMARKS, "bookmarks.zip", getBookmarkChunk);
+}
+
+export const processLikedTweets = async () => {
+    await updateState(ExtensionState.PROCESSING_LIKED_TWEETS);
+    await createArchiveForSource(SourceOption.LIKED_TWEETS, "liked.zip", getLikesChunk);
+}
+
+export const processMediaTweets = async () => {
+    await updateState(ExtensionState.PROCESSING_MEDIA_TWEETS);
+    await createArchiveForSource(SourceOption.MEDIA_TWEETS, "media.zip", getMediaChunk);
+}
+
 export const formatFilename = async (directory: string, extension: string, tweet: RawTweet, media: TweetMedia) => {
     const requestOptions = await getSessionValue<ExportRequest>("requestOptions");
     const handle = tweet.core.user_results.result.legacy.screen_name;
@@ -37,12 +52,17 @@ export const formatFilename = async (directory: string, extension: string, tweet
 };
 
 export const processRequest = async () => {
-    const requestOptions = await getSessionValue<ExportRequest>("requestOptions");
-    await updateState(ExtensionState.RECEIVING_BEARER_TOKEN);
-    await initializeAuthorizationData();
+    try {
+        const requestOptions = await getSessionValue<ExportRequest>("requestOptions");
+        await updateState(ExtensionState.RECEIVING_BEARER_TOKEN);
+        await initializeAuthorizationData();
 
-    if (requestOptions.from.has(SourceOption.BOOKMARKS)) await processBookmarks();
-    if (requestOptions.from.has(SourceOption.LIKED_TWEETS)) await processLikedTweets();
-    if (requestOptions.from.has(SourceOption.MEDIA_TWEETS)) await processMediaTweets();
-    await sendMessage("updateState", ExtensionState.IDLE);
+        if (requestOptions.from.has(SourceOption.BOOKMARKS)) await processBookmarks();
+        if (requestOptions.from.has(SourceOption.LIKED_TWEETS)) await processLikedTweets();
+        if (requestOptions.from.has(SourceOption.MEDIA_TWEETS)) await processMediaTweets();
+        await updateState(ExtensionState.IDLE);
+    }
+    catch (err) {
+        await abort("failed to export your tweets", `general error: ${err}`);
+    }
 }

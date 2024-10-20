@@ -1,4 +1,4 @@
-import { RawTweet, RawTweetMedia } from "../external/common_types";
+import { RawTweet, RawTweetMedia } from "../external/common-types";
 
 export enum TweetMediaType {
 	PHOTO,

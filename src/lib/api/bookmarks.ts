@@ -1,6 +1,6 @@
 import BookmarkOptions from '$lib/static/media-options.json';
 import queryString from 'query-string';
-import { RawTweet } from './types/external/common_types';
+import { RawTweet } from './types/external/common-types';
 import { TwitterAuthorization } from './types/internal/TwitterAuthorization';
 import { getSessionValue } from '@/entrypoints/background';
 import { ExportRequest } from './types/internal/ExportOptions';

@@ -20,7 +20,14 @@
       browser.cookies.get({ name: "auth_token", url: "https://x.com" }) !==
         null;
     registerListeners();
-    sendMessage("getState", undefined).then((res) => (state = res));
+    sendMessage("getState", undefined).then((res) => {
+      state = res;
+      if (state === ExtensionState.ABORTED) {
+        sendMessage("getError", undefined).then((err) => {
+          error = err;
+        });
+      }
+    });
   });
 
   const registerListeners = () => {

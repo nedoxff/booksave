@@ -1,4 +1,4 @@
-import type { RawUser } from "./common_types";
+import type { RawUser } from "./common-types";
 
 export type RawGetSelfUserResponse = {
 	data: {
