@@ -2,6 +2,12 @@
   "name": "booksave",
   "description": "export your bookmarks, liked tweets and other stuff from twitter.",
   "private": true,
+  "author": {
+    "name": "nedoxff",
+    "email": "nedoxff@proton.me",
+    "url": "https://github.com/nedoxff"
+  },
+  "license": "MIT",
   "version": "1.0.0",
   "type": "module",
   "scripts": {

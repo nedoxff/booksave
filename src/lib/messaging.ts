@@ -13,7 +13,7 @@ interface ProtocolMap {
     beginExport(data: ExportRequest);
     getState(): ExtensionState;
     getError(): {simple: string, technical: string};
-    getProcessingStats(type: SourceOption): {processed: number, skipped: number};
+    getProcessingStats(): {processed: number, skipped: number};
 }
 
 export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>();

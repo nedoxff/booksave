@@ -7,28 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@types/streamsaver':
-        specifier: ^2.0.5
-        version: 2.0.5
-      '@webext-core/messaging':
-        specifier: ^2.0.1
-        version: 2.0.1
-      '@zip.js/zip.js':
-        specifier: ^2.7.52
-        version: 2.7.52
-      buffer:
-        specifier: ^6.0.3
-        version: 6.0.3
-      query-string:
-        specifier: ^9.1.1
-        version: 9.1.1
-      serialize-error:
-        specifier: ^11.0.3
-        version: 11.0.3
-      streamsaver:
-        specifier: ^2.0.6
-        version: 2.0.6
     devDependencies:
       '@iconify/svelte':
         specifier: ^4.0.2
@@ -36,15 +14,27 @@ importers:
       '@tsconfig/svelte':
         specifier: ^5.0.4
         version: 5.0.4
+      '@types/streamsaver':
+        specifier: ^2.0.5
+        version: 2.0.5
+      '@webext-core/messaging':
+        specifier: ^2.0.1
+        version: 2.0.1
       '@wxt-dev/module-svelte':
         specifier: ^1.0.1
         version: 1.0.1(svelte@4.2.19)(vite@5.4.9(@types/node@22.7.7))(wxt@0.19.11(@types/node@22.7.7)(rollup@4.24.0))
+      '@zip.js/zip.js':
+        specifier: ^2.7.52
+        version: 2.7.52
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
       bits-ui:
         specifier: ^0.21.16
         version: 0.21.16(svelte@4.2.19)
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -54,6 +44,15 @@ importers:
       postcss:
         specifier: ^8.4.47
         version: 8.4.47
+      query-string:
+        specifier: ^9.1.1
+        version: 9.1.1
+      serialize-error:
+        specifier: ^11.0.3
+        version: 11.0.3
+      streamsaver:
+        specifier: ^2.0.6
+        version: 2.0.6
       svelte:
         specifier: ^4.2.19
         version: 4.2.19

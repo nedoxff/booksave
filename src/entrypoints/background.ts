@@ -9,6 +9,8 @@ export const abort = async (simple: string, technical: string) => {
     extensionState: ExtensionState.ABORTED,
     error: { simple: simple, technical: technical }
   });
+  console.warn(`aborting: ${technical} (${simple})`);
+
   try {
     await sendMessage("abort", { simple: simple, technical: technical });
   }

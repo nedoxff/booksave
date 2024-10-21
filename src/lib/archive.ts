@@ -48,6 +48,8 @@ export const createArchiveForSource = async (source: SourceOption, name: string,
             if (cursor !== undefined) currentCursor = cursor;
 
             const processTweet = async (tweet: RawTweet) => {
+                if(tweet === undefined) return;
+
                 try {
                     for (const media of getMedia(tweet)) {
                         switch (media.type) {
@@ -104,14 +106,24 @@ export const createArchiveForSource = async (source: SourceOption, name: string,
                 }
             }
 
-            await sendMessage('sendProcessingStats', { type: source, processed: processed, skipped: skipped });
+            try {
+                await sendMessage('sendProcessingStats', { type: source, processed: processed, skipped: skipped });
+            }
+            catch(err) {
+                console.warn(`couldn't send processing stats to popup: ${err}`);
+            }
         }
         catch (err) {
-            await abort("failed to export tweets", `in ${source}: ${err}`);
+            await abort("failed to export tweets", `in ${SourceOption[source]}: ${err}`);
             break;
         }
     }
 
     removeListener();
     await archive.close();
+}
+
+// god i hate manifest v3
+const processInOffscreenDocument = async () => {
+    //TODO
 }

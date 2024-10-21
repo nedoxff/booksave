@@ -7,7 +7,8 @@ export default defineConfig({
   modules: ['@wxt-dev/module-svelte'],
 
   manifest: {
-    permissions: ["cookies", "download", "storage", "https://x.com/", "https://api.x.com/"],
+    permissions: ["cookies", "storage", "offscreen"],
+    host_permissions: ["https://x.com/", "https://api.x.com/"]
   },
 
   alias: {
