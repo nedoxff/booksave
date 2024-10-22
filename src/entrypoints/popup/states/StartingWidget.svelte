@@ -31,9 +31,9 @@
     };
 
     let request: ExportRequest = {
-        from: new Set(),
-        how: new Set(),
-        what: new Set(),
+        from: new Array(),
+        how: new Array(),
+        what: new Array(),
         includeQuotes: false,
         paginationStep: -1,
     };
@@ -53,15 +53,13 @@
     const saveSourceFormat = () => {
         if (sources.length == 0 || formats.length == 0) return;
 
-        request.from = new Set(sources.map((x) => sourceConverter[x]));
-        request.what = new Set(formats.map((x) => formatConverter[x]));
+        request.from = sources.map((x) => sourceConverter[x]);
+        request.what = formats.map((x) => formatConverter[x]);
         state = WidgetState.FILENAME_STYLE;
     };
 
     const saveFilenameOptions = () => {
-        request.how = new Set(
-            filenameOptions.map((x) => filenameOptionConverter[x]),
-        );
+        request.how = filenameOptions.map((x) => filenameOptionConverter[x]);
         state = WidgetState.MISC;
     };
 

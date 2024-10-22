@@ -14,11 +14,12 @@
                 <Dialog.Header>
                     <Dialog.Title>about booksave</Dialog.Title>
                     <Dialog.Description
-                        >booksave lets you export
-                        your bookmarks and collections of tweets in a simple and
-                        automated manner.<br />just to be clear,
+                        >booksave lets you export your bookmarks and collections
+                        of tweets in a simple and automated manner.<br />just to
+                        be clear,
                         <b
-                            >your tweets are not sent to some server for processing.</b
+                            >your tweets are not sent to some server for
+                            processing.</b
                         > everything happens on your machine and your machine only.
                     </Dialog.Description>
                 </Dialog.Header>
@@ -30,7 +31,15 @@
             </Dialog.Content>
         </Dialog.Root>
         •
-        <a class="underline" href="https://github.com/nedoxff/booksave"><p>source code</p></a>
+        <a
+            class="underline"
+            href="https://github.com/nedoxff/booksave"
+            target="_blank"><p>source code</p></a
+        >
+        •
+        <a class="underline" href="https://boosty.to/nedoxff" target="_blank"
+            ><p>donate</p></a
+        >
     </div>
     <div class="flex flex-row gap-1 text-muted-foreground text-xs">
         <p>made by nedoxff</p>

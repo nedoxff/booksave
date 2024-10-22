@@ -52,7 +52,7 @@
 
 {#await init() then}
   <div
-    class="min-w-[275px] p-5 pt-3 flex flex-col gap-3 justify-center items-center"
+    class="w-[500px] p-5 pt-3 flex flex-col gap-3 justify-center items-center"
   >
     <div class="flex flex-col gap-1 w-full">
       <div class="flex flex-row gap-1 items-center">
