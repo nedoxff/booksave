@@ -9,10 +9,11 @@
   import ProcessingWidget from "./states/ProcessingWidget.svelte";
   import { SourceOption } from "$lib/api/types/internal/ExportOptions";
   import PopupFooter from "$lib/custom/PopupFooter.svelte";
+  import type { BooksaveError } from "$lib/api/types/shared-types";
 
   let hasCookies: boolean = false;
   let state: ExtensionState | undefined = undefined;
-  let error: { simple: string; technical: string } | undefined;
+  let error: BooksaveError | undefined;
 
   const init = async () => {
     try {
@@ -38,12 +39,23 @@
       error = msg.data;
     });
 
-    const syncedState = await sendMessage("getState", undefined);
-    state = syncedState;
-    if (state === ExtensionState.ABORTED) {
-      sendMessage("getError", undefined).then((err) => {
-        error = err;
-      });
+    try {
+      const syncedState = await sendMessage("getState", undefined);
+      state = syncedState;
+      if (state === ExtensionState.ABORTED) {
+        sendMessage("getError", undefined).then((err) => {
+          error = err;
+        });
+      }
+    } catch (err) {
+      const msg = `failed to communicate with the background script: ${err}`;
+
+      console.error(msg);
+      state = ExtensionState.ABORTED;
+      error = {
+        simple: "couldn't start the extension",
+        technical: msg,
+      };
     }
 
     console.info("registered popup listeners");

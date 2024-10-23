@@ -34,7 +34,7 @@
         <a
             class="underline"
             href="https://github.com/nedoxff/booksave"
-            target="_blank"><p>source code</p></a
+            target="_blank"><p>source code & contribute</p></a
         >
         •
         <a class="underline" href="https://boosty.to/nedoxff" target="_blank"

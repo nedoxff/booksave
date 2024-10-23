@@ -12,16 +12,16 @@
     let skippedCount: number = 0;
 
     onMount(() => {
-        try {
-            sendMessage("getProcessingStats", undefined).then((data) => {
+        sendMessage("getProcessingStats", undefined)
+            .then((data) => {
                 processedCount = data.processed;
                 skippedCount = data.skipped;
-            });
-        } catch {
-            console.warn(
-                `failed to fetch processing stats for ${SourceOption[type]}. defaulting to zeroes`,
+            })
+            .catch((err) =>
+                console.warn(
+                    `failed to fetch processing stats for ${SourceOption[type]}: ${err}`,
+                ),
             );
-        }
 
         const removeListener = onMessage("sendProcessingStats", (msg) => {
             if (msg.data.type !== type) return;
@@ -37,7 +37,7 @@
 
 <div class="flex flex-col items-center">
     <GenericLoadingWidget {title} />
-    <p class="text-md text-center">
+    <p class="text-base text-center">
         processed <span class="font-medium">{processedCount}</span> tweets |
         skipped <span class="font-medium">{skippedCount}</span> tweets
         {#if processedCount >= EASTER_EGG_THRESHOLD}

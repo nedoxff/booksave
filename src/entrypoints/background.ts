@@ -1,12 +1,13 @@
 import { onMessage, sendMessage } from "$lib/messaging";
 import { ExtensionState } from "$lib/api/types/internal/ExtensionState";
+import { BooksaveError } from "$lib/api/types/shared-types";
 
 export const getSessionValue = async <T>(name: string) =>
   (await browser.storage.session.get(name))[name] as T;
 
-export const abort = async (simple: string, technical: string) => {
+export const abort = async (err: BooksaveError) => {
   try {
-    await sendMessage("abort", { simple: simple, technical: technical });
+    await sendMessage("abort", err);
   } catch (err) {
     console.warn(`couldn't send an abort message to popup: ${err}`);
   }
@@ -40,8 +41,7 @@ export default defineBackground({
     });
     onMessage(
       "getError",
-      async () =>
-        await getSessionValue<{ simple: string; technical: string }>("error"),
+      async () => await getSessionValue<BooksaveError>("error"),
     );
     onMessage(
       "getState",

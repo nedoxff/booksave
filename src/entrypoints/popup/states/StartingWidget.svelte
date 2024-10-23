@@ -73,7 +73,7 @@
 </script>
 
 {#if state === WidgetState.SOURCE_AND_FORMAT}
-    <div class="flex flex-col gap-1 items-center">
+    <div class="flex flex-col gap-1 items-center text-base">
         <p>i want to export...</p>
 
         <ToggleGroup.Root
@@ -112,7 +112,7 @@
         </ToggleGroup.Root>
     </div>
 
-    <div class="flex flex-col gap-1 items-center">
+    <div class="flex flex-col gap-1 items-center text-base">
         <p>including...</p>
 
         <ToggleGroup.Root
@@ -149,7 +149,7 @@
         >next <Icon class="ml-1 -mr-1 mt-1" icon="mdi:chevron-right" /></Button
     >
 {:else if state === WidgetState.FILENAME_STYLE}
-    <div class="flex flex-col gap-1 items-center">
+    <div class="flex flex-col gap-1 items-center text-base">
         <p>i want the file names to include...</p>
 
         <ToggleGroup.Root
@@ -189,17 +189,17 @@
                 aria-labelledby="include-quotes-label"
             />
             <label
-                class="leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                class="leading-none text-base peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 for="terms"
                 id="include-quotes-label"
-                >include quote retweets when searching tweets</label
+                >include quote retweets when searching for tweets</label
             >
         </div>
 
         <div
             class="border-muted border-2 p-2 rounded-xl flex flex-col items-start justify-start gap-1 w-fit"
         >
-            <p class="text-md">the amount of tweets sent per request</p>
+            <p class="text-base">the amount of tweets sent per request</p>
             <p class="-mt-1 text-sm text-muted-foreground">
                 only set this to a higher value if you have a good internet
                 connection.

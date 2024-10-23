@@ -5,12 +5,13 @@ import {
   SourceOption,
 } from "./api/types/internal/ExportOptions";
 import { TwitterAuthorization } from "./api/types/internal/TwitterAuthorization";
+import { BooksaveError } from "./api/types/shared-types";
 
 interface ProtocolMap {
   // called from background
   clientLog(message: string);
   updateState(state: ExtensionState);
-  abort(reason: { simple: string; technical: string });
+  abort(error: BooksaveError);
   sendProcessingStats(data: {
     type: SourceOption;
     processed: number;
@@ -25,7 +26,7 @@ interface ProtocolMap {
   // called from popup
   beginExport(data: ExportRequest);
   getState(): ExtensionState;
-  getError(): { simple: string; technical: string };
+  getError(): BooksaveError;
   getProcessingStats(): { processed: number; skipped: number };
 }
 

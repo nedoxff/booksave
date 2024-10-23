@@ -5,10 +5,10 @@
   "author": {
     "name": "nedoxff",
     "email": "nedoxff@proton.me",
-    "url": "https://github.com/nedoxff"
+    "url": "https://nedoxff.github.io"
   },
-  "license": "MIT",
-  "version": "1.0.0",
+  "license": "AGPL-3.0-only",
+  "version": "1.0.0-brainstorm",
   "type": "module",
   "scripts": {
     "dev": "wxt",
@@ -47,6 +47,5 @@
     "wxt": "^0.19.11",
     "@types/chrome": "^0.0.279"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }

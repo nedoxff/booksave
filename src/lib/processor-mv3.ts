@@ -12,10 +12,10 @@ const initializeAuthorizationData = async () => {
   const dirtyAuth = await getAuthorizationData();
   if (dirtyAuth === null) {
     console.error("authorization cookies were not found. aborting");
-    abort(
-      "couldn't get authorization data",
-      "auth_token and ct0 cookies were not found",
-    );
+    abort({
+      simple: "couldn't get authorization data",
+      technical: "auth_token, twid and ct0 cookies were not found",
+    });
   } else {
     console.info("successfully acquired authorization credentials");
     await chrome.storage.session.set({
@@ -53,10 +53,10 @@ const process = async (
 export const processRequest = async () => {
   try {
     if (chrome.offscreen === undefined) {
-      await abort(
-        "your chrome browser does not support mv3",
-        "chrome.offscreen is undefined",
-      );
+      await abort({
+        simple: "your chrome browser does not support mv3",
+        technical: "chrome.offscreen is undefined",
+      });
       return;
     }
 
@@ -79,7 +79,10 @@ export const processRequest = async () => {
     await closeOffscreenDocument();
     await updateState(ExtensionState.IDLE);
   } catch (err) {
-    await abort("failed to export your tweets", `general error: ${err}`);
+    await abort({
+      simple: "failed to export your tweets",
+      technical: `general error: ${err}`,
+    });
     if (await hasOffscreenDocument()) {
       await closeOffscreenDocument();
     }

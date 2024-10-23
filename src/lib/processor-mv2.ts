@@ -12,10 +12,10 @@ const initializeAuthorizationData = async () => {
   const dirtyAuth = await getAuthorizationData();
   if (dirtyAuth === null) {
     console.error("authorization cookies were not found. aborting");
-    abort(
-      "couldn't get authorization data",
-      "auth_token and ct0 cookies were not found",
-    );
+    abort({
+      simple: "couldn't get authorization data",
+      technical: "auth_token, twid and ct0 cookies were not found",
+    });
   } else {
     console.info("successfully acquired authorization credentials");
     await browser.storage.session.set({
@@ -56,6 +56,9 @@ export const processRequest = async () => {
       await process(SourceOption.MEDIA_TWEETS, authorization, requestOptions);
     await updateState(ExtensionState.IDLE);
   } catch (err) {
-    await abort("failed to export your tweets", `general error: ${err}`);
+    await abort({
+      simple: "failed to export your tweets",
+      technical: `general error: ${err}`,
+    });
   }
 };

@@ -56,10 +56,10 @@ export const createArchiveForSource = async (
         requestOptions.paginationStep,
       );
     } catch (err) {
-      await abort(
-        "failed to access twitter's api",
-        `while processing ${source}: ${err}`,
-      );
+      await abort({
+        simple: "failed to access twitter's api",
+        technical: `while processing ${source}: ${err}`,
+      });
       return null;
     }
   };
@@ -159,6 +159,7 @@ export const createArchiveForSource = async (
               }
             }
           }
+
           processed++;
         } catch (err) {
           console.warn(`skipping tweet ${tweet.rest_id}: ${err}`);
@@ -187,10 +188,10 @@ export const createArchiveForSource = async (
       }
     } catch (err) {
       console.error(err);
-      await abort(
-        "failed to export tweets",
-        `in ${SourceOption[source]}: ${err}`,
-      );
+      await abort({
+        simple: "failed to export tweets",
+        technical: `in ${SourceOption[source]}: ${err}`,
+      });
       break;
     }
   }
