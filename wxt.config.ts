@@ -6,10 +6,10 @@ export default defineConfig({
   extensionApi: "webextension-polyfill",
   modules: ["@wxt-dev/module-svelte", "@wxt-dev/auto-icons"],
 
-  manifest: {
-    permissions: ["cookies", "storage", "offscreen"],
+  manifest: ({ manifestVersion }) => ({
+    permissions: manifestVersion === 3 ? ["cookies", "storage", "offscreen"]: ["cookies", "storage"],
     host_permissions: ["https://x.com/", "https://api.x.com/"],
-  },
+  }),
 
   alias: {
     $lib: "./src/lib",
